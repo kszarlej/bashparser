@@ -1,0 +1,2370 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CHAR
+    NEWLINE
+    LINE_COMMENT
+    FOR
+    SHABANG
+    RBRACE
+    AMPERSAND
+    IN
+    EQ
+    NEQ
+    LBRACE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> instructions
+Rule 2     instructions -> instruction instructions
+Rule 3     instructions -> instruction
+Rule 4     instruction -> identifier ASSIGNMENT expression
+Rule 5     instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression
+Rule 6     instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI
+Rule 7     instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+Rule 8     instruction -> WHILE condition SEMICOLON DO instructions DONE
+Rule 9     instruction -> ECHO expression
+Rule 10    instruction -> BREAK
+Rule 11    instruction -> CONTINUE
+Rule 12    double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN
+Rule 13    instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN
+Rule 14    identifier -> IDENTIFIER
+Rule 15    comparators -> TEST_EQ
+Rule 16    comparators -> TEST_NEQ
+Rule 17    comparators -> TEST_LT
+Rule 18    comparators -> TEST_GT
+Rule 19    comparators -> EQUALS
+Rule 20    comparators -> GT
+Rule 21    comparators -> GTE
+Rule 22    comparators -> LT
+Rule 23    comparators -> LTE
+Rule 24    condition -> expression
+Rule 25    condition -> DOUBLE_LBRACKET expression DOUBLE_RBRACKET
+Rule 26    condition -> LBRACKET expression RBRACKET
+Rule 27    expression -> identifier
+Rule 28    expression -> identifier DECREMENT
+Rule 29    expression -> identifier INCREMENT
+Rule 30    expression -> const
+Rule 31    expression -> expression PLUS expression
+Rule 32    expression -> expression MINUS expression
+Rule 33    expression -> expression TIMES expression
+Rule 34    expression -> expression DIVIDE expression
+Rule 35    expression -> expression comparators expression
+Rule 36    expression -> LPAREN expression RPAREN
+Rule 37    const -> NUMBER
+Rule 38    const -> STRING
+Rule 39    const -> VARIABLE
+Rule 40    const -> BOOLEAN
+Rule 41    instruction -> command switch_list argument_list
+Rule 42    instruction -> command argument_list
+Rule 43    instruction -> command switch_list
+Rule 44    instruction -> command
+Rule 45    command -> identifier
+Rule 46    switch -> MINUS identifier
+Rule 47    switch_list -> switch switch_list
+Rule 48    switch_list -> switch
+Rule 49    argument -> const
+Rule 50    argument_list -> argument argument_list
+Rule 51    argument_list -> argument
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 
+ASSIGNMENT           : 4 5
+BOOLEAN              : 40
+BREAK                : 10
+CHAR                 : 
+CONTINUE             : 11
+DECREMENT            : 28
+DIVIDE               : 34
+DO                   : 8
+DOLLAR               : 12
+DONE                 : 8
+DOUBLE_LBRACKET      : 25
+DOUBLE_LPAREN        : 12 13
+DOUBLE_RBRACKET      : 25
+DOUBLE_RPAREN        : 12 13
+ECHO                 : 9
+ELSE                 : 7
+EQ                   : 
+EQUALS               : 19
+FI                   : 6 7
+FOR                  : 
+GT                   : 20
+GTE                  : 21
+IDENTIFIER           : 14
+IF                   : 6 7
+IN                   : 
+INCREMENT            : 29
+LBRACE               : 
+LBRACKET             : 26
+LINE_COMMENT         : 
+LPAREN               : 36
+LT                   : 22
+LTE                  : 23
+MINUS                : 32 46
+NEQ                  : 
+NEWLINE              : 
+NUMBER               : 37
+PLUS                 : 31
+RBRACE               : 
+RBRACKET             : 26
+RPAREN               : 36
+SEMICOLON            : 6 6 7 7 7 8
+SHABANG              : 
+STRING               : 38
+TEST_EQ              : 15
+TEST_GT              : 18
+TEST_LT              : 17
+TEST_NEQ             : 16
+THEN                 : 6 7
+TIMES                : 33
+VARIABLE             : 39
+WHILE                : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument             : 50 51
+argument_list        : 41 42 50
+command              : 41 42 43 44
+comparators          : 35
+condition            : 6 7 8
+const                : 30 49
+double_paren_dollar_prefix_expression : 5
+expression           : 4 9 12 13 24 25 26 31 31 32 32 33 33 34 34 35 35 36
+identifier           : 4 5 27 28 29 45 46
+instruction          : 2 3
+instructions         : 1 2 6 7 7 8
+program              : 0
+switch               : 47 48
+switch_list          : 41 43 47
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . instructions
+    (2) instructions -> . instruction instructions
+    (3) instructions -> . instruction
+    (4) instruction -> . identifier ASSIGNMENT expression
+    (5) instruction -> . identifier ASSIGNMENT double_paren_dollar_prefix_expression
+    (6) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (8) instruction -> . WHILE condition SEMICOLON DO instructions DONE
+    (9) instruction -> . ECHO expression
+    (10) instruction -> . BREAK
+    (11) instruction -> . CONTINUE
+    (13) instruction -> . DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (41) instruction -> . command switch_list argument_list
+    (42) instruction -> . command argument_list
+    (43) instruction -> . command switch_list
+    (44) instruction -> . command
+    (14) identifier -> . IDENTIFIER
+    (45) command -> . identifier
+
+    IF              shift and go to state 6
+    WHILE           shift and go to state 1
+    ECHO            shift and go to state 5
+    BREAK           shift and go to state 9
+    CONTINUE        shift and go to state 10
+    DOUBLE_LPAREN   shift and go to state 2
+    IDENTIFIER      shift and go to state 7
+
+    instruction                    shift and go to state 8
+    program                        shift and go to state 3
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+    instructions                   shift and go to state 4
+
+state 1
+
+    (8) instruction -> WHILE . condition SEMICOLON DO instructions DONE
+    (24) condition -> . expression
+    (25) condition -> . DOUBLE_LBRACKET expression DOUBLE_RBRACKET
+    (26) condition -> . LBRACKET expression RBRACKET
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    DOUBLE_LBRACKET shift and go to state 17
+    LBRACKET        shift and go to state 14
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    expression                     shift and go to state 23
+    identifier                     shift and go to state 22
+    condition                      shift and go to state 20
+
+state 2
+
+    (13) instruction -> DOUBLE_LPAREN . expression DOUBLE_RPAREN
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 24
+
+state 3
+
+    (0) S' -> program .
+
+
+
+state 4
+
+    (1) program -> instructions .
+
+    $end            reduce using rule 1 (program -> instructions .)
+
+
+state 5
+
+    (9) instruction -> ECHO . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 25
+
+state 6
+
+    (6) instruction -> IF . condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> IF . condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (24) condition -> . expression
+    (25) condition -> . DOUBLE_LBRACKET expression DOUBLE_RBRACKET
+    (26) condition -> . LBRACKET expression RBRACKET
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    DOUBLE_LBRACKET shift and go to state 17
+    LBRACKET        shift and go to state 14
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    expression                     shift and go to state 23
+    identifier                     shift and go to state 22
+    condition                      shift and go to state 26
+
+state 7
+
+    (14) identifier -> IDENTIFIER .
+
+    ASSIGNMENT      reduce using rule 14 (identifier -> IDENTIFIER .)
+    MINUS           reduce using rule 14 (identifier -> IDENTIFIER .)
+    NUMBER          reduce using rule 14 (identifier -> IDENTIFIER .)
+    STRING          reduce using rule 14 (identifier -> IDENTIFIER .)
+    VARIABLE        reduce using rule 14 (identifier -> IDENTIFIER .)
+    BOOLEAN         reduce using rule 14 (identifier -> IDENTIFIER .)
+    IF              reduce using rule 14 (identifier -> IDENTIFIER .)
+    WHILE           reduce using rule 14 (identifier -> IDENTIFIER .)
+    ECHO            reduce using rule 14 (identifier -> IDENTIFIER .)
+    BREAK           reduce using rule 14 (identifier -> IDENTIFIER .)
+    CONTINUE        reduce using rule 14 (identifier -> IDENTIFIER .)
+    DOUBLE_LPAREN   reduce using rule 14 (identifier -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 14 (identifier -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 14 (identifier -> IDENTIFIER .)
+    DECREMENT       reduce using rule 14 (identifier -> IDENTIFIER .)
+    INCREMENT       reduce using rule 14 (identifier -> IDENTIFIER .)
+    PLUS            reduce using rule 14 (identifier -> IDENTIFIER .)
+    TIMES           reduce using rule 14 (identifier -> IDENTIFIER .)
+    DIVIDE          reduce using rule 14 (identifier -> IDENTIFIER .)
+    TEST_EQ         reduce using rule 14 (identifier -> IDENTIFIER .)
+    TEST_NEQ        reduce using rule 14 (identifier -> IDENTIFIER .)
+    TEST_LT         reduce using rule 14 (identifier -> IDENTIFIER .)
+    TEST_GT         reduce using rule 14 (identifier -> IDENTIFIER .)
+    EQUALS          reduce using rule 14 (identifier -> IDENTIFIER .)
+    GT              reduce using rule 14 (identifier -> IDENTIFIER .)
+    GTE             reduce using rule 14 (identifier -> IDENTIFIER .)
+    LT              reduce using rule 14 (identifier -> IDENTIFIER .)
+    LTE             reduce using rule 14 (identifier -> IDENTIFIER .)
+    $end            reduce using rule 14 (identifier -> IDENTIFIER .)
+    DONE            reduce using rule 14 (identifier -> IDENTIFIER .)
+    RPAREN          reduce using rule 14 (identifier -> IDENTIFIER .)
+    RBRACKET        reduce using rule 14 (identifier -> IDENTIFIER .)
+    DOUBLE_RPAREN   reduce using rule 14 (identifier -> IDENTIFIER .)
+    DOUBLE_RBRACKET reduce using rule 14 (identifier -> IDENTIFIER .)
+
+
+state 8
+
+    (2) instructions -> instruction . instructions
+    (3) instructions -> instruction .
+    (2) instructions -> . instruction instructions
+    (3) instructions -> . instruction
+    (4) instruction -> . identifier ASSIGNMENT expression
+    (5) instruction -> . identifier ASSIGNMENT double_paren_dollar_prefix_expression
+    (6) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (8) instruction -> . WHILE condition SEMICOLON DO instructions DONE
+    (9) instruction -> . ECHO expression
+    (10) instruction -> . BREAK
+    (11) instruction -> . CONTINUE
+    (13) instruction -> . DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (41) instruction -> . command switch_list argument_list
+    (42) instruction -> . command argument_list
+    (43) instruction -> . command switch_list
+    (44) instruction -> . command
+    (14) identifier -> . IDENTIFIER
+    (45) command -> . identifier
+
+    DONE            reduce using rule 3 (instructions -> instruction .)
+    SEMICOLON       reduce using rule 3 (instructions -> instruction .)
+    $end            reduce using rule 3 (instructions -> instruction .)
+    IF              shift and go to state 6
+    WHILE           shift and go to state 1
+    ECHO            shift and go to state 5
+    BREAK           shift and go to state 9
+    CONTINUE        shift and go to state 10
+    DOUBLE_LPAREN   shift and go to state 2
+    IDENTIFIER      shift and go to state 7
+
+    instruction                    shift and go to state 8
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+    instructions                   shift and go to state 27
+
+state 9
+
+    (10) instruction -> BREAK .
+
+    IF              reduce using rule 10 (instruction -> BREAK .)
+    WHILE           reduce using rule 10 (instruction -> BREAK .)
+    ECHO            reduce using rule 10 (instruction -> BREAK .)
+    BREAK           reduce using rule 10 (instruction -> BREAK .)
+    CONTINUE        reduce using rule 10 (instruction -> BREAK .)
+    DOUBLE_LPAREN   reduce using rule 10 (instruction -> BREAK .)
+    IDENTIFIER      reduce using rule 10 (instruction -> BREAK .)
+    $end            reduce using rule 10 (instruction -> BREAK .)
+    SEMICOLON       reduce using rule 10 (instruction -> BREAK .)
+    DONE            reduce using rule 10 (instruction -> BREAK .)
+
+
+state 10
+
+    (11) instruction -> CONTINUE .
+
+    IF              reduce using rule 11 (instruction -> CONTINUE .)
+    WHILE           reduce using rule 11 (instruction -> CONTINUE .)
+    ECHO            reduce using rule 11 (instruction -> CONTINUE .)
+    BREAK           reduce using rule 11 (instruction -> CONTINUE .)
+    CONTINUE        reduce using rule 11 (instruction -> CONTINUE .)
+    DOUBLE_LPAREN   reduce using rule 11 (instruction -> CONTINUE .)
+    IDENTIFIER      reduce using rule 11 (instruction -> CONTINUE .)
+    $end            reduce using rule 11 (instruction -> CONTINUE .)
+    SEMICOLON       reduce using rule 11 (instruction -> CONTINUE .)
+    DONE            reduce using rule 11 (instruction -> CONTINUE .)
+
+
+state 11
+
+    (41) instruction -> command . switch_list argument_list
+    (42) instruction -> command . argument_list
+    (43) instruction -> command . switch_list
+    (44) instruction -> command .
+    (47) switch_list -> . switch switch_list
+    (48) switch_list -> . switch
+    (50) argument_list -> . argument argument_list
+    (51) argument_list -> . argument
+    (46) switch -> . MINUS identifier
+    (49) argument -> . const
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    IF              reduce using rule 44 (instruction -> command .)
+    WHILE           reduce using rule 44 (instruction -> command .)
+    ECHO            reduce using rule 44 (instruction -> command .)
+    BREAK           reduce using rule 44 (instruction -> command .)
+    CONTINUE        reduce using rule 44 (instruction -> command .)
+    DOUBLE_LPAREN   reduce using rule 44 (instruction -> command .)
+    IDENTIFIER      reduce using rule 44 (instruction -> command .)
+    $end            reduce using rule 44 (instruction -> command .)
+    SEMICOLON       reduce using rule 44 (instruction -> command .)
+    DONE            reduce using rule 44 (instruction -> command .)
+    MINUS           shift and go to state 33
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 28
+    argument                       shift and go to state 29
+    switch                         shift and go to state 30
+    argument_list                  shift and go to state 31
+    switch_list                    shift and go to state 32
+
+state 12
+
+    (4) instruction -> identifier . ASSIGNMENT expression
+    (5) instruction -> identifier . ASSIGNMENT double_paren_dollar_prefix_expression
+    (45) command -> identifier .
+
+    ASSIGNMENT      shift and go to state 34
+    MINUS           reduce using rule 45 (command -> identifier .)
+    NUMBER          reduce using rule 45 (command -> identifier .)
+    STRING          reduce using rule 45 (command -> identifier .)
+    VARIABLE        reduce using rule 45 (command -> identifier .)
+    BOOLEAN         reduce using rule 45 (command -> identifier .)
+    IF              reduce using rule 45 (command -> identifier .)
+    WHILE           reduce using rule 45 (command -> identifier .)
+    ECHO            reduce using rule 45 (command -> identifier .)
+    BREAK           reduce using rule 45 (command -> identifier .)
+    CONTINUE        reduce using rule 45 (command -> identifier .)
+    DOUBLE_LPAREN   reduce using rule 45 (command -> identifier .)
+    IDENTIFIER      reduce using rule 45 (command -> identifier .)
+    SEMICOLON       reduce using rule 45 (command -> identifier .)
+    $end            reduce using rule 45 (command -> identifier .)
+    DONE            reduce using rule 45 (command -> identifier .)
+
+
+state 13
+
+    (37) const -> NUMBER .
+
+    PLUS            reduce using rule 37 (const -> NUMBER .)
+    MINUS           reduce using rule 37 (const -> NUMBER .)
+    TIMES           reduce using rule 37 (const -> NUMBER .)
+    DIVIDE          reduce using rule 37 (const -> NUMBER .)
+    TEST_EQ         reduce using rule 37 (const -> NUMBER .)
+    TEST_NEQ        reduce using rule 37 (const -> NUMBER .)
+    TEST_LT         reduce using rule 37 (const -> NUMBER .)
+    TEST_GT         reduce using rule 37 (const -> NUMBER .)
+    EQUALS          reduce using rule 37 (const -> NUMBER .)
+    GT              reduce using rule 37 (const -> NUMBER .)
+    GTE             reduce using rule 37 (const -> NUMBER .)
+    LT              reduce using rule 37 (const -> NUMBER .)
+    LTE             reduce using rule 37 (const -> NUMBER .)
+    IF              reduce using rule 37 (const -> NUMBER .)
+    WHILE           reduce using rule 37 (const -> NUMBER .)
+    ECHO            reduce using rule 37 (const -> NUMBER .)
+    BREAK           reduce using rule 37 (const -> NUMBER .)
+    CONTINUE        reduce using rule 37 (const -> NUMBER .)
+    DOUBLE_LPAREN   reduce using rule 37 (const -> NUMBER .)
+    IDENTIFIER      reduce using rule 37 (const -> NUMBER .)
+    $end            reduce using rule 37 (const -> NUMBER .)
+    DONE            reduce using rule 37 (const -> NUMBER .)
+    SEMICOLON       reduce using rule 37 (const -> NUMBER .)
+    DOUBLE_RBRACKET reduce using rule 37 (const -> NUMBER .)
+    DOUBLE_RPAREN   reduce using rule 37 (const -> NUMBER .)
+    RBRACKET        reduce using rule 37 (const -> NUMBER .)
+    RPAREN          reduce using rule 37 (const -> NUMBER .)
+    NUMBER          reduce using rule 37 (const -> NUMBER .)
+    STRING          reduce using rule 37 (const -> NUMBER .)
+    VARIABLE        reduce using rule 37 (const -> NUMBER .)
+    BOOLEAN         reduce using rule 37 (const -> NUMBER .)
+
+
+state 14
+
+    (26) condition -> LBRACKET . expression RBRACKET
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 35
+
+state 15
+
+    (38) const -> STRING .
+
+    PLUS            reduce using rule 38 (const -> STRING .)
+    MINUS           reduce using rule 38 (const -> STRING .)
+    TIMES           reduce using rule 38 (const -> STRING .)
+    DIVIDE          reduce using rule 38 (const -> STRING .)
+    TEST_EQ         reduce using rule 38 (const -> STRING .)
+    TEST_NEQ        reduce using rule 38 (const -> STRING .)
+    TEST_LT         reduce using rule 38 (const -> STRING .)
+    TEST_GT         reduce using rule 38 (const -> STRING .)
+    EQUALS          reduce using rule 38 (const -> STRING .)
+    GT              reduce using rule 38 (const -> STRING .)
+    GTE             reduce using rule 38 (const -> STRING .)
+    LT              reduce using rule 38 (const -> STRING .)
+    LTE             reduce using rule 38 (const -> STRING .)
+    IF              reduce using rule 38 (const -> STRING .)
+    WHILE           reduce using rule 38 (const -> STRING .)
+    ECHO            reduce using rule 38 (const -> STRING .)
+    BREAK           reduce using rule 38 (const -> STRING .)
+    CONTINUE        reduce using rule 38 (const -> STRING .)
+    DOUBLE_LPAREN   reduce using rule 38 (const -> STRING .)
+    IDENTIFIER      reduce using rule 38 (const -> STRING .)
+    $end            reduce using rule 38 (const -> STRING .)
+    DONE            reduce using rule 38 (const -> STRING .)
+    SEMICOLON       reduce using rule 38 (const -> STRING .)
+    DOUBLE_RBRACKET reduce using rule 38 (const -> STRING .)
+    DOUBLE_RPAREN   reduce using rule 38 (const -> STRING .)
+    RBRACKET        reduce using rule 38 (const -> STRING .)
+    RPAREN          reduce using rule 38 (const -> STRING .)
+    NUMBER          reduce using rule 38 (const -> STRING .)
+    STRING          reduce using rule 38 (const -> STRING .)
+    VARIABLE        reduce using rule 38 (const -> STRING .)
+    BOOLEAN         reduce using rule 38 (const -> STRING .)
+
+
+state 16
+
+    (30) expression -> const .
+
+    PLUS            reduce using rule 30 (expression -> const .)
+    MINUS           reduce using rule 30 (expression -> const .)
+    TIMES           reduce using rule 30 (expression -> const .)
+    DIVIDE          reduce using rule 30 (expression -> const .)
+    TEST_EQ         reduce using rule 30 (expression -> const .)
+    TEST_NEQ        reduce using rule 30 (expression -> const .)
+    TEST_LT         reduce using rule 30 (expression -> const .)
+    TEST_GT         reduce using rule 30 (expression -> const .)
+    EQUALS          reduce using rule 30 (expression -> const .)
+    GT              reduce using rule 30 (expression -> const .)
+    GTE             reduce using rule 30 (expression -> const .)
+    LT              reduce using rule 30 (expression -> const .)
+    LTE             reduce using rule 30 (expression -> const .)
+    SEMICOLON       reduce using rule 30 (expression -> const .)
+    DOUBLE_RPAREN   reduce using rule 30 (expression -> const .)
+    IF              reduce using rule 30 (expression -> const .)
+    WHILE           reduce using rule 30 (expression -> const .)
+    ECHO            reduce using rule 30 (expression -> const .)
+    BREAK           reduce using rule 30 (expression -> const .)
+    CONTINUE        reduce using rule 30 (expression -> const .)
+    DOUBLE_LPAREN   reduce using rule 30 (expression -> const .)
+    IDENTIFIER      reduce using rule 30 (expression -> const .)
+    $end            reduce using rule 30 (expression -> const .)
+    DONE            reduce using rule 30 (expression -> const .)
+    RBRACKET        reduce using rule 30 (expression -> const .)
+    DOUBLE_RBRACKET reduce using rule 30 (expression -> const .)
+    RPAREN          reduce using rule 30 (expression -> const .)
+
+
+state 17
+
+    (25) condition -> DOUBLE_LBRACKET . expression DOUBLE_RBRACKET
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 36
+
+state 18
+
+    (36) expression -> LPAREN . expression RPAREN
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 37
+
+state 19
+
+    (39) const -> VARIABLE .
+
+    PLUS            reduce using rule 39 (const -> VARIABLE .)
+    MINUS           reduce using rule 39 (const -> VARIABLE .)
+    TIMES           reduce using rule 39 (const -> VARIABLE .)
+    DIVIDE          reduce using rule 39 (const -> VARIABLE .)
+    TEST_EQ         reduce using rule 39 (const -> VARIABLE .)
+    TEST_NEQ        reduce using rule 39 (const -> VARIABLE .)
+    TEST_LT         reduce using rule 39 (const -> VARIABLE .)
+    TEST_GT         reduce using rule 39 (const -> VARIABLE .)
+    EQUALS          reduce using rule 39 (const -> VARIABLE .)
+    GT              reduce using rule 39 (const -> VARIABLE .)
+    GTE             reduce using rule 39 (const -> VARIABLE .)
+    LT              reduce using rule 39 (const -> VARIABLE .)
+    LTE             reduce using rule 39 (const -> VARIABLE .)
+    IF              reduce using rule 39 (const -> VARIABLE .)
+    WHILE           reduce using rule 39 (const -> VARIABLE .)
+    ECHO            reduce using rule 39 (const -> VARIABLE .)
+    BREAK           reduce using rule 39 (const -> VARIABLE .)
+    CONTINUE        reduce using rule 39 (const -> VARIABLE .)
+    DOUBLE_LPAREN   reduce using rule 39 (const -> VARIABLE .)
+    IDENTIFIER      reduce using rule 39 (const -> VARIABLE .)
+    $end            reduce using rule 39 (const -> VARIABLE .)
+    DONE            reduce using rule 39 (const -> VARIABLE .)
+    SEMICOLON       reduce using rule 39 (const -> VARIABLE .)
+    DOUBLE_RBRACKET reduce using rule 39 (const -> VARIABLE .)
+    DOUBLE_RPAREN   reduce using rule 39 (const -> VARIABLE .)
+    RBRACKET        reduce using rule 39 (const -> VARIABLE .)
+    RPAREN          reduce using rule 39 (const -> VARIABLE .)
+    NUMBER          reduce using rule 39 (const -> VARIABLE .)
+    STRING          reduce using rule 39 (const -> VARIABLE .)
+    VARIABLE        reduce using rule 39 (const -> VARIABLE .)
+    BOOLEAN         reduce using rule 39 (const -> VARIABLE .)
+
+
+state 20
+
+    (8) instruction -> WHILE condition . SEMICOLON DO instructions DONE
+
+    SEMICOLON       shift and go to state 38
+
+
+state 21
+
+    (40) const -> BOOLEAN .
+
+    PLUS            reduce using rule 40 (const -> BOOLEAN .)
+    MINUS           reduce using rule 40 (const -> BOOLEAN .)
+    TIMES           reduce using rule 40 (const -> BOOLEAN .)
+    DIVIDE          reduce using rule 40 (const -> BOOLEAN .)
+    TEST_EQ         reduce using rule 40 (const -> BOOLEAN .)
+    TEST_NEQ        reduce using rule 40 (const -> BOOLEAN .)
+    TEST_LT         reduce using rule 40 (const -> BOOLEAN .)
+    TEST_GT         reduce using rule 40 (const -> BOOLEAN .)
+    EQUALS          reduce using rule 40 (const -> BOOLEAN .)
+    GT              reduce using rule 40 (const -> BOOLEAN .)
+    GTE             reduce using rule 40 (const -> BOOLEAN .)
+    LT              reduce using rule 40 (const -> BOOLEAN .)
+    LTE             reduce using rule 40 (const -> BOOLEAN .)
+    IF              reduce using rule 40 (const -> BOOLEAN .)
+    WHILE           reduce using rule 40 (const -> BOOLEAN .)
+    ECHO            reduce using rule 40 (const -> BOOLEAN .)
+    BREAK           reduce using rule 40 (const -> BOOLEAN .)
+    CONTINUE        reduce using rule 40 (const -> BOOLEAN .)
+    DOUBLE_LPAREN   reduce using rule 40 (const -> BOOLEAN .)
+    IDENTIFIER      reduce using rule 40 (const -> BOOLEAN .)
+    $end            reduce using rule 40 (const -> BOOLEAN .)
+    DONE            reduce using rule 40 (const -> BOOLEAN .)
+    SEMICOLON       reduce using rule 40 (const -> BOOLEAN .)
+    DOUBLE_RBRACKET reduce using rule 40 (const -> BOOLEAN .)
+    DOUBLE_RPAREN   reduce using rule 40 (const -> BOOLEAN .)
+    RBRACKET        reduce using rule 40 (const -> BOOLEAN .)
+    RPAREN          reduce using rule 40 (const -> BOOLEAN .)
+    NUMBER          reduce using rule 40 (const -> BOOLEAN .)
+    STRING          reduce using rule 40 (const -> BOOLEAN .)
+    VARIABLE        reduce using rule 40 (const -> BOOLEAN .)
+    BOOLEAN         reduce using rule 40 (const -> BOOLEAN .)
+
+
+state 22
+
+    (27) expression -> identifier .
+    (28) expression -> identifier . DECREMENT
+    (29) expression -> identifier . INCREMENT
+
+    PLUS            reduce using rule 27 (expression -> identifier .)
+    MINUS           reduce using rule 27 (expression -> identifier .)
+    TIMES           reduce using rule 27 (expression -> identifier .)
+    DIVIDE          reduce using rule 27 (expression -> identifier .)
+    TEST_EQ         reduce using rule 27 (expression -> identifier .)
+    TEST_NEQ        reduce using rule 27 (expression -> identifier .)
+    TEST_LT         reduce using rule 27 (expression -> identifier .)
+    TEST_GT         reduce using rule 27 (expression -> identifier .)
+    EQUALS          reduce using rule 27 (expression -> identifier .)
+    GT              reduce using rule 27 (expression -> identifier .)
+    GTE             reduce using rule 27 (expression -> identifier .)
+    LT              reduce using rule 27 (expression -> identifier .)
+    LTE             reduce using rule 27 (expression -> identifier .)
+    SEMICOLON       reduce using rule 27 (expression -> identifier .)
+    DOUBLE_RPAREN   reduce using rule 27 (expression -> identifier .)
+    IF              reduce using rule 27 (expression -> identifier .)
+    WHILE           reduce using rule 27 (expression -> identifier .)
+    ECHO            reduce using rule 27 (expression -> identifier .)
+    BREAK           reduce using rule 27 (expression -> identifier .)
+    CONTINUE        reduce using rule 27 (expression -> identifier .)
+    DOUBLE_LPAREN   reduce using rule 27 (expression -> identifier .)
+    IDENTIFIER      reduce using rule 27 (expression -> identifier .)
+    $end            reduce using rule 27 (expression -> identifier .)
+    DONE            reduce using rule 27 (expression -> identifier .)
+    RBRACKET        reduce using rule 27 (expression -> identifier .)
+    DOUBLE_RBRACKET reduce using rule 27 (expression -> identifier .)
+    RPAREN          reduce using rule 27 (expression -> identifier .)
+    DECREMENT       shift and go to state 39
+    INCREMENT       shift and go to state 40
+
+
+state 23
+
+    (24) condition -> expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    SEMICOLON       reduce using rule 24 (condition -> expression .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 24
+
+    (13) instruction -> DOUBLE_LPAREN expression . DOUBLE_RPAREN
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    DOUBLE_RPAREN   shift and go to state 55
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 25
+
+    (9) instruction -> ECHO expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    IF              reduce using rule 9 (instruction -> ECHO expression .)
+    WHILE           reduce using rule 9 (instruction -> ECHO expression .)
+    ECHO            reduce using rule 9 (instruction -> ECHO expression .)
+    BREAK           reduce using rule 9 (instruction -> ECHO expression .)
+    CONTINUE        reduce using rule 9 (instruction -> ECHO expression .)
+    DOUBLE_LPAREN   reduce using rule 9 (instruction -> ECHO expression .)
+    IDENTIFIER      reduce using rule 9 (instruction -> ECHO expression .)
+    $end            reduce using rule 9 (instruction -> ECHO expression .)
+    SEMICOLON       reduce using rule 9 (instruction -> ECHO expression .)
+    DONE            reduce using rule 9 (instruction -> ECHO expression .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 26
+
+    (6) instruction -> IF condition . SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> IF condition . SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+
+    SEMICOLON       shift and go to state 56
+
+
+state 27
+
+    (2) instructions -> instruction instructions .
+
+    DONE            reduce using rule 2 (instructions -> instruction instructions .)
+    SEMICOLON       reduce using rule 2 (instructions -> instruction instructions .)
+    $end            reduce using rule 2 (instructions -> instruction instructions .)
+
+
+state 28
+
+    (49) argument -> const .
+
+    NUMBER          reduce using rule 49 (argument -> const .)
+    STRING          reduce using rule 49 (argument -> const .)
+    VARIABLE        reduce using rule 49 (argument -> const .)
+    BOOLEAN         reduce using rule 49 (argument -> const .)
+    IF              reduce using rule 49 (argument -> const .)
+    WHILE           reduce using rule 49 (argument -> const .)
+    ECHO            reduce using rule 49 (argument -> const .)
+    BREAK           reduce using rule 49 (argument -> const .)
+    CONTINUE        reduce using rule 49 (argument -> const .)
+    DOUBLE_LPAREN   reduce using rule 49 (argument -> const .)
+    IDENTIFIER      reduce using rule 49 (argument -> const .)
+    $end            reduce using rule 49 (argument -> const .)
+    DONE            reduce using rule 49 (argument -> const .)
+    SEMICOLON       reduce using rule 49 (argument -> const .)
+
+
+state 29
+
+    (50) argument_list -> argument . argument_list
+    (51) argument_list -> argument .
+    (50) argument_list -> . argument argument_list
+    (51) argument_list -> . argument
+    (49) argument -> . const
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    IF              reduce using rule 51 (argument_list -> argument .)
+    WHILE           reduce using rule 51 (argument_list -> argument .)
+    ECHO            reduce using rule 51 (argument_list -> argument .)
+    BREAK           reduce using rule 51 (argument_list -> argument .)
+    CONTINUE        reduce using rule 51 (argument_list -> argument .)
+    DOUBLE_LPAREN   reduce using rule 51 (argument_list -> argument .)
+    IDENTIFIER      reduce using rule 51 (argument_list -> argument .)
+    $end            reduce using rule 51 (argument_list -> argument .)
+    DONE            reduce using rule 51 (argument_list -> argument .)
+    SEMICOLON       reduce using rule 51 (argument_list -> argument .)
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 28
+    argument                       shift and go to state 29
+    argument_list                  shift and go to state 57
+
+state 30
+
+    (47) switch_list -> switch . switch_list
+    (48) switch_list -> switch .
+    (47) switch_list -> . switch switch_list
+    (48) switch_list -> . switch
+    (46) switch -> . MINUS identifier
+
+    NUMBER          reduce using rule 48 (switch_list -> switch .)
+    STRING          reduce using rule 48 (switch_list -> switch .)
+    VARIABLE        reduce using rule 48 (switch_list -> switch .)
+    BOOLEAN         reduce using rule 48 (switch_list -> switch .)
+    IF              reduce using rule 48 (switch_list -> switch .)
+    WHILE           reduce using rule 48 (switch_list -> switch .)
+    ECHO            reduce using rule 48 (switch_list -> switch .)
+    BREAK           reduce using rule 48 (switch_list -> switch .)
+    CONTINUE        reduce using rule 48 (switch_list -> switch .)
+    DOUBLE_LPAREN   reduce using rule 48 (switch_list -> switch .)
+    IDENTIFIER      reduce using rule 48 (switch_list -> switch .)
+    $end            reduce using rule 48 (switch_list -> switch .)
+    DONE            reduce using rule 48 (switch_list -> switch .)
+    SEMICOLON       reduce using rule 48 (switch_list -> switch .)
+    MINUS           shift and go to state 33
+
+    switch                         shift and go to state 30
+    switch_list                    shift and go to state 58
+
+state 31
+
+    (42) instruction -> command argument_list .
+
+    IF              reduce using rule 42 (instruction -> command argument_list .)
+    WHILE           reduce using rule 42 (instruction -> command argument_list .)
+    ECHO            reduce using rule 42 (instruction -> command argument_list .)
+    BREAK           reduce using rule 42 (instruction -> command argument_list .)
+    CONTINUE        reduce using rule 42 (instruction -> command argument_list .)
+    DOUBLE_LPAREN   reduce using rule 42 (instruction -> command argument_list .)
+    IDENTIFIER      reduce using rule 42 (instruction -> command argument_list .)
+    $end            reduce using rule 42 (instruction -> command argument_list .)
+    SEMICOLON       reduce using rule 42 (instruction -> command argument_list .)
+    DONE            reduce using rule 42 (instruction -> command argument_list .)
+
+
+state 32
+
+    (41) instruction -> command switch_list . argument_list
+    (43) instruction -> command switch_list .
+    (50) argument_list -> . argument argument_list
+    (51) argument_list -> . argument
+    (49) argument -> . const
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    IF              reduce using rule 43 (instruction -> command switch_list .)
+    WHILE           reduce using rule 43 (instruction -> command switch_list .)
+    ECHO            reduce using rule 43 (instruction -> command switch_list .)
+    BREAK           reduce using rule 43 (instruction -> command switch_list .)
+    CONTINUE        reduce using rule 43 (instruction -> command switch_list .)
+    DOUBLE_LPAREN   reduce using rule 43 (instruction -> command switch_list .)
+    IDENTIFIER      reduce using rule 43 (instruction -> command switch_list .)
+    $end            reduce using rule 43 (instruction -> command switch_list .)
+    SEMICOLON       reduce using rule 43 (instruction -> command switch_list .)
+    DONE            reduce using rule 43 (instruction -> command switch_list .)
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 28
+    argument_list                  shift and go to state 59
+    argument                       shift and go to state 29
+
+state 33
+
+    (46) switch -> MINUS . identifier
+    (14) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 7
+
+    identifier                     shift and go to state 60
+
+state 34
+
+    (4) instruction -> identifier ASSIGNMENT . expression
+    (5) instruction -> identifier ASSIGNMENT . double_paren_dollar_prefix_expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (12) double_paren_dollar_prefix_expression -> . DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    DOLLAR          shift and go to state 62
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 63
+    double_paren_dollar_prefix_expression shift and go to state 61
+
+state 35
+
+    (26) condition -> LBRACKET expression . RBRACKET
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    RBRACKET        shift and go to state 64
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 36
+
+    (25) condition -> DOUBLE_LBRACKET expression . DOUBLE_RBRACKET
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    DOUBLE_RBRACKET shift and go to state 65
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 37
+
+    (36) expression -> LPAREN expression . RPAREN
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    RPAREN          shift and go to state 66
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 38
+
+    (8) instruction -> WHILE condition SEMICOLON . DO instructions DONE
+
+    DO              shift and go to state 67
+
+
+state 39
+
+    (28) expression -> identifier DECREMENT .
+
+    PLUS            reduce using rule 28 (expression -> identifier DECREMENT .)
+    MINUS           reduce using rule 28 (expression -> identifier DECREMENT .)
+    TIMES           reduce using rule 28 (expression -> identifier DECREMENT .)
+    DIVIDE          reduce using rule 28 (expression -> identifier DECREMENT .)
+    TEST_EQ         reduce using rule 28 (expression -> identifier DECREMENT .)
+    TEST_NEQ        reduce using rule 28 (expression -> identifier DECREMENT .)
+    TEST_LT         reduce using rule 28 (expression -> identifier DECREMENT .)
+    TEST_GT         reduce using rule 28 (expression -> identifier DECREMENT .)
+    EQUALS          reduce using rule 28 (expression -> identifier DECREMENT .)
+    GT              reduce using rule 28 (expression -> identifier DECREMENT .)
+    GTE             reduce using rule 28 (expression -> identifier DECREMENT .)
+    LT              reduce using rule 28 (expression -> identifier DECREMENT .)
+    LTE             reduce using rule 28 (expression -> identifier DECREMENT .)
+    SEMICOLON       reduce using rule 28 (expression -> identifier DECREMENT .)
+    DOUBLE_RPAREN   reduce using rule 28 (expression -> identifier DECREMENT .)
+    IF              reduce using rule 28 (expression -> identifier DECREMENT .)
+    WHILE           reduce using rule 28 (expression -> identifier DECREMENT .)
+    ECHO            reduce using rule 28 (expression -> identifier DECREMENT .)
+    BREAK           reduce using rule 28 (expression -> identifier DECREMENT .)
+    CONTINUE        reduce using rule 28 (expression -> identifier DECREMENT .)
+    DOUBLE_LPAREN   reduce using rule 28 (expression -> identifier DECREMENT .)
+    IDENTIFIER      reduce using rule 28 (expression -> identifier DECREMENT .)
+    $end            reduce using rule 28 (expression -> identifier DECREMENT .)
+    DONE            reduce using rule 28 (expression -> identifier DECREMENT .)
+    RBRACKET        reduce using rule 28 (expression -> identifier DECREMENT .)
+    DOUBLE_RBRACKET reduce using rule 28 (expression -> identifier DECREMENT .)
+    RPAREN          reduce using rule 28 (expression -> identifier DECREMENT .)
+
+
+state 40
+
+    (29) expression -> identifier INCREMENT .
+
+    PLUS            reduce using rule 29 (expression -> identifier INCREMENT .)
+    MINUS           reduce using rule 29 (expression -> identifier INCREMENT .)
+    TIMES           reduce using rule 29 (expression -> identifier INCREMENT .)
+    DIVIDE          reduce using rule 29 (expression -> identifier INCREMENT .)
+    TEST_EQ         reduce using rule 29 (expression -> identifier INCREMENT .)
+    TEST_NEQ        reduce using rule 29 (expression -> identifier INCREMENT .)
+    TEST_LT         reduce using rule 29 (expression -> identifier INCREMENT .)
+    TEST_GT         reduce using rule 29 (expression -> identifier INCREMENT .)
+    EQUALS          reduce using rule 29 (expression -> identifier INCREMENT .)
+    GT              reduce using rule 29 (expression -> identifier INCREMENT .)
+    GTE             reduce using rule 29 (expression -> identifier INCREMENT .)
+    LT              reduce using rule 29 (expression -> identifier INCREMENT .)
+    LTE             reduce using rule 29 (expression -> identifier INCREMENT .)
+    SEMICOLON       reduce using rule 29 (expression -> identifier INCREMENT .)
+    DOUBLE_RPAREN   reduce using rule 29 (expression -> identifier INCREMENT .)
+    IF              reduce using rule 29 (expression -> identifier INCREMENT .)
+    WHILE           reduce using rule 29 (expression -> identifier INCREMENT .)
+    ECHO            reduce using rule 29 (expression -> identifier INCREMENT .)
+    BREAK           reduce using rule 29 (expression -> identifier INCREMENT .)
+    CONTINUE        reduce using rule 29 (expression -> identifier INCREMENT .)
+    DOUBLE_LPAREN   reduce using rule 29 (expression -> identifier INCREMENT .)
+    IDENTIFIER      reduce using rule 29 (expression -> identifier INCREMENT .)
+    $end            reduce using rule 29 (expression -> identifier INCREMENT .)
+    DONE            reduce using rule 29 (expression -> identifier INCREMENT .)
+    RBRACKET        reduce using rule 29 (expression -> identifier INCREMENT .)
+    DOUBLE_RBRACKET reduce using rule 29 (expression -> identifier INCREMENT .)
+    RPAREN          reduce using rule 29 (expression -> identifier INCREMENT .)
+
+
+state 41
+
+    (16) comparators -> TEST_NEQ .
+
+    LPAREN          reduce using rule 16 (comparators -> TEST_NEQ .)
+    IDENTIFIER      reduce using rule 16 (comparators -> TEST_NEQ .)
+    NUMBER          reduce using rule 16 (comparators -> TEST_NEQ .)
+    STRING          reduce using rule 16 (comparators -> TEST_NEQ .)
+    VARIABLE        reduce using rule 16 (comparators -> TEST_NEQ .)
+    BOOLEAN         reduce using rule 16 (comparators -> TEST_NEQ .)
+
+
+state 42
+
+    (20) comparators -> GT .
+
+    LPAREN          reduce using rule 20 (comparators -> GT .)
+    IDENTIFIER      reduce using rule 20 (comparators -> GT .)
+    NUMBER          reduce using rule 20 (comparators -> GT .)
+    STRING          reduce using rule 20 (comparators -> GT .)
+    VARIABLE        reduce using rule 20 (comparators -> GT .)
+    BOOLEAN         reduce using rule 20 (comparators -> GT .)
+
+
+state 43
+
+    (34) expression -> expression DIVIDE . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 68
+
+state 44
+
+    (18) comparators -> TEST_GT .
+
+    LPAREN          reduce using rule 18 (comparators -> TEST_GT .)
+    IDENTIFIER      reduce using rule 18 (comparators -> TEST_GT .)
+    NUMBER          reduce using rule 18 (comparators -> TEST_GT .)
+    STRING          reduce using rule 18 (comparators -> TEST_GT .)
+    VARIABLE        reduce using rule 18 (comparators -> TEST_GT .)
+    BOOLEAN         reduce using rule 18 (comparators -> TEST_GT .)
+
+
+state 45
+
+    (19) comparators -> EQUALS .
+
+    LPAREN          reduce using rule 19 (comparators -> EQUALS .)
+    IDENTIFIER      reduce using rule 19 (comparators -> EQUALS .)
+    NUMBER          reduce using rule 19 (comparators -> EQUALS .)
+    STRING          reduce using rule 19 (comparators -> EQUALS .)
+    VARIABLE        reduce using rule 19 (comparators -> EQUALS .)
+    BOOLEAN         reduce using rule 19 (comparators -> EQUALS .)
+
+
+state 46
+
+    (33) expression -> expression TIMES . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 69
+
+state 47
+
+    (22) comparators -> LT .
+
+    LPAREN          reduce using rule 22 (comparators -> LT .)
+    IDENTIFIER      reduce using rule 22 (comparators -> LT .)
+    NUMBER          reduce using rule 22 (comparators -> LT .)
+    STRING          reduce using rule 22 (comparators -> LT .)
+    VARIABLE        reduce using rule 22 (comparators -> LT .)
+    BOOLEAN         reduce using rule 22 (comparators -> LT .)
+
+
+state 48
+
+    (31) expression -> expression PLUS . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 70
+
+state 49
+
+    (23) comparators -> LTE .
+
+    LPAREN          reduce using rule 23 (comparators -> LTE .)
+    IDENTIFIER      reduce using rule 23 (comparators -> LTE .)
+    NUMBER          reduce using rule 23 (comparators -> LTE .)
+    STRING          reduce using rule 23 (comparators -> LTE .)
+    VARIABLE        reduce using rule 23 (comparators -> LTE .)
+    BOOLEAN         reduce using rule 23 (comparators -> LTE .)
+
+
+state 50
+
+    (17) comparators -> TEST_LT .
+
+    LPAREN          reduce using rule 17 (comparators -> TEST_LT .)
+    IDENTIFIER      reduce using rule 17 (comparators -> TEST_LT .)
+    NUMBER          reduce using rule 17 (comparators -> TEST_LT .)
+    STRING          reduce using rule 17 (comparators -> TEST_LT .)
+    VARIABLE        reduce using rule 17 (comparators -> TEST_LT .)
+    BOOLEAN         reduce using rule 17 (comparators -> TEST_LT .)
+
+
+state 51
+
+    (15) comparators -> TEST_EQ .
+
+    LPAREN          reduce using rule 15 (comparators -> TEST_EQ .)
+    IDENTIFIER      reduce using rule 15 (comparators -> TEST_EQ .)
+    NUMBER          reduce using rule 15 (comparators -> TEST_EQ .)
+    STRING          reduce using rule 15 (comparators -> TEST_EQ .)
+    VARIABLE        reduce using rule 15 (comparators -> TEST_EQ .)
+    BOOLEAN         reduce using rule 15 (comparators -> TEST_EQ .)
+
+
+state 52
+
+    (35) expression -> expression comparators . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 71
+    const                          shift and go to state 16
+
+state 53
+
+    (32) expression -> expression MINUS . expression
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 72
+
+state 54
+
+    (21) comparators -> GTE .
+
+    LPAREN          reduce using rule 21 (comparators -> GTE .)
+    IDENTIFIER      reduce using rule 21 (comparators -> GTE .)
+    NUMBER          reduce using rule 21 (comparators -> GTE .)
+    STRING          reduce using rule 21 (comparators -> GTE .)
+    VARIABLE        reduce using rule 21 (comparators -> GTE .)
+    BOOLEAN         reduce using rule 21 (comparators -> GTE .)
+
+
+state 55
+
+    (13) instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .
+
+    IF              reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    WHILE           reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    ECHO            reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    BREAK           reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    CONTINUE        reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    DOUBLE_LPAREN   reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    IDENTIFIER      reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    $end            reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    SEMICOLON       reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    DONE            reduce using rule 13 (instruction -> DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+
+
+state 56
+
+    (6) instruction -> IF condition SEMICOLON . THEN instructions SEMICOLON FI
+    (7) instruction -> IF condition SEMICOLON . THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+
+    THEN            shift and go to state 73
+
+
+state 57
+
+    (50) argument_list -> argument argument_list .
+
+    IF              reduce using rule 50 (argument_list -> argument argument_list .)
+    WHILE           reduce using rule 50 (argument_list -> argument argument_list .)
+    ECHO            reduce using rule 50 (argument_list -> argument argument_list .)
+    BREAK           reduce using rule 50 (argument_list -> argument argument_list .)
+    CONTINUE        reduce using rule 50 (argument_list -> argument argument_list .)
+    DOUBLE_LPAREN   reduce using rule 50 (argument_list -> argument argument_list .)
+    IDENTIFIER      reduce using rule 50 (argument_list -> argument argument_list .)
+    $end            reduce using rule 50 (argument_list -> argument argument_list .)
+    DONE            reduce using rule 50 (argument_list -> argument argument_list .)
+    SEMICOLON       reduce using rule 50 (argument_list -> argument argument_list .)
+
+
+state 58
+
+    (47) switch_list -> switch switch_list .
+
+    NUMBER          reduce using rule 47 (switch_list -> switch switch_list .)
+    STRING          reduce using rule 47 (switch_list -> switch switch_list .)
+    VARIABLE        reduce using rule 47 (switch_list -> switch switch_list .)
+    BOOLEAN         reduce using rule 47 (switch_list -> switch switch_list .)
+    IF              reduce using rule 47 (switch_list -> switch switch_list .)
+    WHILE           reduce using rule 47 (switch_list -> switch switch_list .)
+    ECHO            reduce using rule 47 (switch_list -> switch switch_list .)
+    BREAK           reduce using rule 47 (switch_list -> switch switch_list .)
+    CONTINUE        reduce using rule 47 (switch_list -> switch switch_list .)
+    DOUBLE_LPAREN   reduce using rule 47 (switch_list -> switch switch_list .)
+    IDENTIFIER      reduce using rule 47 (switch_list -> switch switch_list .)
+    $end            reduce using rule 47 (switch_list -> switch switch_list .)
+    DONE            reduce using rule 47 (switch_list -> switch switch_list .)
+    SEMICOLON       reduce using rule 47 (switch_list -> switch switch_list .)
+
+
+state 59
+
+    (41) instruction -> command switch_list argument_list .
+
+    IF              reduce using rule 41 (instruction -> command switch_list argument_list .)
+    WHILE           reduce using rule 41 (instruction -> command switch_list argument_list .)
+    ECHO            reduce using rule 41 (instruction -> command switch_list argument_list .)
+    BREAK           reduce using rule 41 (instruction -> command switch_list argument_list .)
+    CONTINUE        reduce using rule 41 (instruction -> command switch_list argument_list .)
+    DOUBLE_LPAREN   reduce using rule 41 (instruction -> command switch_list argument_list .)
+    IDENTIFIER      reduce using rule 41 (instruction -> command switch_list argument_list .)
+    $end            reduce using rule 41 (instruction -> command switch_list argument_list .)
+    SEMICOLON       reduce using rule 41 (instruction -> command switch_list argument_list .)
+    DONE            reduce using rule 41 (instruction -> command switch_list argument_list .)
+
+
+state 60
+
+    (46) switch -> MINUS identifier .
+
+    MINUS           reduce using rule 46 (switch -> MINUS identifier .)
+    NUMBER          reduce using rule 46 (switch -> MINUS identifier .)
+    STRING          reduce using rule 46 (switch -> MINUS identifier .)
+    VARIABLE        reduce using rule 46 (switch -> MINUS identifier .)
+    BOOLEAN         reduce using rule 46 (switch -> MINUS identifier .)
+    IF              reduce using rule 46 (switch -> MINUS identifier .)
+    WHILE           reduce using rule 46 (switch -> MINUS identifier .)
+    ECHO            reduce using rule 46 (switch -> MINUS identifier .)
+    BREAK           reduce using rule 46 (switch -> MINUS identifier .)
+    CONTINUE        reduce using rule 46 (switch -> MINUS identifier .)
+    DOUBLE_LPAREN   reduce using rule 46 (switch -> MINUS identifier .)
+    IDENTIFIER      reduce using rule 46 (switch -> MINUS identifier .)
+    $end            reduce using rule 46 (switch -> MINUS identifier .)
+    DONE            reduce using rule 46 (switch -> MINUS identifier .)
+    SEMICOLON       reduce using rule 46 (switch -> MINUS identifier .)
+
+
+state 61
+
+    (5) instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .
+
+    IF              reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    WHILE           reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    ECHO            reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    BREAK           reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    CONTINUE        reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    DOUBLE_LPAREN   reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    IDENTIFIER      reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    $end            reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    SEMICOLON       reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+    DONE            reduce using rule 5 (instruction -> identifier ASSIGNMENT double_paren_dollar_prefix_expression .)
+
+
+state 62
+
+    (12) double_paren_dollar_prefix_expression -> DOLLAR . DOUBLE_LPAREN expression DOUBLE_RPAREN
+
+    DOUBLE_LPAREN   shift and go to state 74
+
+
+state 63
+
+    (4) instruction -> identifier ASSIGNMENT expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    IF              reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    WHILE           reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    ECHO            reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    BREAK           reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    CONTINUE        reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    DOUBLE_LPAREN   reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    IDENTIFIER      reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    $end            reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    SEMICOLON       reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    DONE            reduce using rule 4 (instruction -> identifier ASSIGNMENT expression .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 64
+
+    (26) condition -> LBRACKET expression RBRACKET .
+
+    SEMICOLON       reduce using rule 26 (condition -> LBRACKET expression RBRACKET .)
+
+
+state 65
+
+    (25) condition -> DOUBLE_LBRACKET expression DOUBLE_RBRACKET .
+
+    SEMICOLON       reduce using rule 25 (condition -> DOUBLE_LBRACKET expression DOUBLE_RBRACKET .)
+
+
+state 66
+
+    (36) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    TEST_EQ         reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    TEST_NEQ        reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    TEST_LT         reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    TEST_GT         reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    EQUALS          reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    GT              reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    GTE             reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    LT              reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    LTE             reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    DOUBLE_RPAREN   reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    IF              reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    WHILE           reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    ECHO            reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    BREAK           reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    CONTINUE        reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    DOUBLE_LPAREN   reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    IDENTIFIER      reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    DONE            reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    RBRACKET        reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    DOUBLE_RBRACKET reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 36 (expression -> LPAREN expression RPAREN .)
+
+
+state 67
+
+    (8) instruction -> WHILE condition SEMICOLON DO . instructions DONE
+    (2) instructions -> . instruction instructions
+    (3) instructions -> . instruction
+    (4) instruction -> . identifier ASSIGNMENT expression
+    (5) instruction -> . identifier ASSIGNMENT double_paren_dollar_prefix_expression
+    (6) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (8) instruction -> . WHILE condition SEMICOLON DO instructions DONE
+    (9) instruction -> . ECHO expression
+    (10) instruction -> . BREAK
+    (11) instruction -> . CONTINUE
+    (13) instruction -> . DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (41) instruction -> . command switch_list argument_list
+    (42) instruction -> . command argument_list
+    (43) instruction -> . command switch_list
+    (44) instruction -> . command
+    (14) identifier -> . IDENTIFIER
+    (45) command -> . identifier
+
+    IF              shift and go to state 6
+    WHILE           shift and go to state 1
+    ECHO            shift and go to state 5
+    BREAK           shift and go to state 9
+    CONTINUE        shift and go to state 10
+    DOUBLE_LPAREN   shift and go to state 2
+    IDENTIFIER      shift and go to state 7
+
+    instruction                    shift and go to state 8
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+    instructions                   shift and go to state 75
+
+state 68
+
+    (34) expression -> expression DIVIDE expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    PLUS            reduce using rule 34 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 34 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 34 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 34 (expression -> expression DIVIDE expression .)
+    TEST_EQ         reduce using rule 34 (expression -> expression DIVIDE expression .)
+    TEST_NEQ        reduce using rule 34 (expression -> expression DIVIDE expression .)
+    TEST_LT         reduce using rule 34 (expression -> expression DIVIDE expression .)
+    TEST_GT         reduce using rule 34 (expression -> expression DIVIDE expression .)
+    EQUALS          reduce using rule 34 (expression -> expression DIVIDE expression .)
+    GT              reduce using rule 34 (expression -> expression DIVIDE expression .)
+    GTE             reduce using rule 34 (expression -> expression DIVIDE expression .)
+    LT              reduce using rule 34 (expression -> expression DIVIDE expression .)
+    LTE             reduce using rule 34 (expression -> expression DIVIDE expression .)
+    SEMICOLON       reduce using rule 34 (expression -> expression DIVIDE expression .)
+    DOUBLE_RPAREN   reduce using rule 34 (expression -> expression DIVIDE expression .)
+    IF              reduce using rule 34 (expression -> expression DIVIDE expression .)
+    WHILE           reduce using rule 34 (expression -> expression DIVIDE expression .)
+    ECHO            reduce using rule 34 (expression -> expression DIVIDE expression .)
+    BREAK           reduce using rule 34 (expression -> expression DIVIDE expression .)
+    CONTINUE        reduce using rule 34 (expression -> expression DIVIDE expression .)
+    DOUBLE_LPAREN   reduce using rule 34 (expression -> expression DIVIDE expression .)
+    IDENTIFIER      reduce using rule 34 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 34 (expression -> expression DIVIDE expression .)
+    DONE            reduce using rule 34 (expression -> expression DIVIDE expression .)
+    RBRACKET        reduce using rule 34 (expression -> expression DIVIDE expression .)
+    DOUBLE_RBRACKET reduce using rule 34 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 34 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 48 ]
+  ! MINUS           [ shift and go to state 53 ]
+  ! TIMES           [ shift and go to state 46 ]
+  ! DIVIDE          [ shift and go to state 43 ]
+  ! TEST_EQ         [ shift and go to state 51 ]
+  ! TEST_NEQ        [ shift and go to state 41 ]
+  ! TEST_LT         [ shift and go to state 50 ]
+  ! TEST_GT         [ shift and go to state 44 ]
+  ! EQUALS          [ shift and go to state 45 ]
+  ! GT              [ shift and go to state 42 ]
+  ! GTE             [ shift and go to state 54 ]
+  ! LT              [ shift and go to state 47 ]
+  ! LTE             [ shift and go to state 49 ]
+
+    comparators                    shift and go to state 52
+
+state 69
+
+    (33) expression -> expression TIMES expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    PLUS            reduce using rule 33 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 33 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 33 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 33 (expression -> expression TIMES expression .)
+    TEST_EQ         reduce using rule 33 (expression -> expression TIMES expression .)
+    TEST_NEQ        reduce using rule 33 (expression -> expression TIMES expression .)
+    TEST_LT         reduce using rule 33 (expression -> expression TIMES expression .)
+    TEST_GT         reduce using rule 33 (expression -> expression TIMES expression .)
+    EQUALS          reduce using rule 33 (expression -> expression TIMES expression .)
+    GT              reduce using rule 33 (expression -> expression TIMES expression .)
+    GTE             reduce using rule 33 (expression -> expression TIMES expression .)
+    LT              reduce using rule 33 (expression -> expression TIMES expression .)
+    LTE             reduce using rule 33 (expression -> expression TIMES expression .)
+    SEMICOLON       reduce using rule 33 (expression -> expression TIMES expression .)
+    DOUBLE_RPAREN   reduce using rule 33 (expression -> expression TIMES expression .)
+    IF              reduce using rule 33 (expression -> expression TIMES expression .)
+    WHILE           reduce using rule 33 (expression -> expression TIMES expression .)
+    ECHO            reduce using rule 33 (expression -> expression TIMES expression .)
+    BREAK           reduce using rule 33 (expression -> expression TIMES expression .)
+    CONTINUE        reduce using rule 33 (expression -> expression TIMES expression .)
+    DOUBLE_LPAREN   reduce using rule 33 (expression -> expression TIMES expression .)
+    IDENTIFIER      reduce using rule 33 (expression -> expression TIMES expression .)
+    $end            reduce using rule 33 (expression -> expression TIMES expression .)
+    DONE            reduce using rule 33 (expression -> expression TIMES expression .)
+    RBRACKET        reduce using rule 33 (expression -> expression TIMES expression .)
+    DOUBLE_RBRACKET reduce using rule 33 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 33 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 48 ]
+  ! MINUS           [ shift and go to state 53 ]
+  ! TIMES           [ shift and go to state 46 ]
+  ! DIVIDE          [ shift and go to state 43 ]
+  ! TEST_EQ         [ shift and go to state 51 ]
+  ! TEST_NEQ        [ shift and go to state 41 ]
+  ! TEST_LT         [ shift and go to state 50 ]
+  ! TEST_GT         [ shift and go to state 44 ]
+  ! EQUALS          [ shift and go to state 45 ]
+  ! GT              [ shift and go to state 42 ]
+  ! GTE             [ shift and go to state 54 ]
+  ! LT              [ shift and go to state 47 ]
+  ! LTE             [ shift and go to state 49 ]
+
+    comparators                    shift and go to state 52
+
+state 70
+
+    (31) expression -> expression PLUS expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    PLUS            reduce using rule 31 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 31 (expression -> expression PLUS expression .)
+    TEST_EQ         reduce using rule 31 (expression -> expression PLUS expression .)
+    TEST_NEQ        reduce using rule 31 (expression -> expression PLUS expression .)
+    TEST_LT         reduce using rule 31 (expression -> expression PLUS expression .)
+    TEST_GT         reduce using rule 31 (expression -> expression PLUS expression .)
+    EQUALS          reduce using rule 31 (expression -> expression PLUS expression .)
+    GT              reduce using rule 31 (expression -> expression PLUS expression .)
+    GTE             reduce using rule 31 (expression -> expression PLUS expression .)
+    LT              reduce using rule 31 (expression -> expression PLUS expression .)
+    LTE             reduce using rule 31 (expression -> expression PLUS expression .)
+    SEMICOLON       reduce using rule 31 (expression -> expression PLUS expression .)
+    DOUBLE_RPAREN   reduce using rule 31 (expression -> expression PLUS expression .)
+    IF              reduce using rule 31 (expression -> expression PLUS expression .)
+    WHILE           reduce using rule 31 (expression -> expression PLUS expression .)
+    ECHO            reduce using rule 31 (expression -> expression PLUS expression .)
+    BREAK           reduce using rule 31 (expression -> expression PLUS expression .)
+    CONTINUE        reduce using rule 31 (expression -> expression PLUS expression .)
+    DOUBLE_LPAREN   reduce using rule 31 (expression -> expression PLUS expression .)
+    IDENTIFIER      reduce using rule 31 (expression -> expression PLUS expression .)
+    $end            reduce using rule 31 (expression -> expression PLUS expression .)
+    DONE            reduce using rule 31 (expression -> expression PLUS expression .)
+    RBRACKET        reduce using rule 31 (expression -> expression PLUS expression .)
+    DOUBLE_RBRACKET reduce using rule 31 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 31 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+
+  ! TIMES           [ reduce using rule 31 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 31 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 48 ]
+  ! MINUS           [ shift and go to state 53 ]
+  ! TEST_EQ         [ shift and go to state 51 ]
+  ! TEST_NEQ        [ shift and go to state 41 ]
+  ! TEST_LT         [ shift and go to state 50 ]
+  ! TEST_GT         [ shift and go to state 44 ]
+  ! EQUALS          [ shift and go to state 45 ]
+  ! GT              [ shift and go to state 42 ]
+  ! GTE             [ shift and go to state 54 ]
+  ! LT              [ shift and go to state 47 ]
+  ! LTE             [ shift and go to state 49 ]
+
+    comparators                    shift and go to state 52
+
+state 71
+
+    (35) expression -> expression comparators expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for TEST_EQ resolved as shift
+  ! shift/reduce conflict for TEST_NEQ resolved as shift
+  ! shift/reduce conflict for TEST_LT resolved as shift
+  ! shift/reduce conflict for TEST_GT resolved as shift
+  ! shift/reduce conflict for EQUALS resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+    SEMICOLON       reduce using rule 35 (expression -> expression comparators expression .)
+    DOUBLE_RPAREN   reduce using rule 35 (expression -> expression comparators expression .)
+    IF              reduce using rule 35 (expression -> expression comparators expression .)
+    WHILE           reduce using rule 35 (expression -> expression comparators expression .)
+    ECHO            reduce using rule 35 (expression -> expression comparators expression .)
+    BREAK           reduce using rule 35 (expression -> expression comparators expression .)
+    CONTINUE        reduce using rule 35 (expression -> expression comparators expression .)
+    DOUBLE_LPAREN   reduce using rule 35 (expression -> expression comparators expression .)
+    IDENTIFIER      reduce using rule 35 (expression -> expression comparators expression .)
+    $end            reduce using rule 35 (expression -> expression comparators expression .)
+    DONE            reduce using rule 35 (expression -> expression comparators expression .)
+    RBRACKET        reduce using rule 35 (expression -> expression comparators expression .)
+    DOUBLE_RBRACKET reduce using rule 35 (expression -> expression comparators expression .)
+    RPAREN          reduce using rule 35 (expression -> expression comparators expression .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+  ! PLUS            [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! MINUS           [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! TIMES           [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! DIVIDE          [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! TEST_EQ         [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! TEST_NEQ        [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! TEST_LT         [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! TEST_GT         [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! EQUALS          [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! GT              [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! GTE             [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! LT              [ reduce using rule 35 (expression -> expression comparators expression .) ]
+  ! LTE             [ reduce using rule 35 (expression -> expression comparators expression .) ]
+
+    comparators                    shift and go to state 52
+
+state 72
+
+    (32) expression -> expression MINUS expression .
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    PLUS            reduce using rule 32 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 32 (expression -> expression MINUS expression .)
+    TEST_EQ         reduce using rule 32 (expression -> expression MINUS expression .)
+    TEST_NEQ        reduce using rule 32 (expression -> expression MINUS expression .)
+    TEST_LT         reduce using rule 32 (expression -> expression MINUS expression .)
+    TEST_GT         reduce using rule 32 (expression -> expression MINUS expression .)
+    EQUALS          reduce using rule 32 (expression -> expression MINUS expression .)
+    GT              reduce using rule 32 (expression -> expression MINUS expression .)
+    GTE             reduce using rule 32 (expression -> expression MINUS expression .)
+    LT              reduce using rule 32 (expression -> expression MINUS expression .)
+    LTE             reduce using rule 32 (expression -> expression MINUS expression .)
+    SEMICOLON       reduce using rule 32 (expression -> expression MINUS expression .)
+    DOUBLE_RPAREN   reduce using rule 32 (expression -> expression MINUS expression .)
+    IF              reduce using rule 32 (expression -> expression MINUS expression .)
+    WHILE           reduce using rule 32 (expression -> expression MINUS expression .)
+    ECHO            reduce using rule 32 (expression -> expression MINUS expression .)
+    BREAK           reduce using rule 32 (expression -> expression MINUS expression .)
+    CONTINUE        reduce using rule 32 (expression -> expression MINUS expression .)
+    DOUBLE_LPAREN   reduce using rule 32 (expression -> expression MINUS expression .)
+    IDENTIFIER      reduce using rule 32 (expression -> expression MINUS expression .)
+    $end            reduce using rule 32 (expression -> expression MINUS expression .)
+    DONE            reduce using rule 32 (expression -> expression MINUS expression .)
+    RBRACKET        reduce using rule 32 (expression -> expression MINUS expression .)
+    DOUBLE_RBRACKET reduce using rule 32 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 32 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+
+  ! TIMES           [ reduce using rule 32 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 32 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 48 ]
+  ! MINUS           [ shift and go to state 53 ]
+  ! TEST_EQ         [ shift and go to state 51 ]
+  ! TEST_NEQ        [ shift and go to state 41 ]
+  ! TEST_LT         [ shift and go to state 50 ]
+  ! TEST_GT         [ shift and go to state 44 ]
+  ! EQUALS          [ shift and go to state 45 ]
+  ! GT              [ shift and go to state 42 ]
+  ! GTE             [ shift and go to state 54 ]
+  ! LT              [ shift and go to state 47 ]
+  ! LTE             [ shift and go to state 49 ]
+
+    comparators                    shift and go to state 52
+
+state 73
+
+    (6) instruction -> IF condition SEMICOLON THEN . instructions SEMICOLON FI
+    (7) instruction -> IF condition SEMICOLON THEN . instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (2) instructions -> . instruction instructions
+    (3) instructions -> . instruction
+    (4) instruction -> . identifier ASSIGNMENT expression
+    (5) instruction -> . identifier ASSIGNMENT double_paren_dollar_prefix_expression
+    (6) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (8) instruction -> . WHILE condition SEMICOLON DO instructions DONE
+    (9) instruction -> . ECHO expression
+    (10) instruction -> . BREAK
+    (11) instruction -> . CONTINUE
+    (13) instruction -> . DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (41) instruction -> . command switch_list argument_list
+    (42) instruction -> . command argument_list
+    (43) instruction -> . command switch_list
+    (44) instruction -> . command
+    (14) identifier -> . IDENTIFIER
+    (45) command -> . identifier
+
+    IF              shift and go to state 6
+    WHILE           shift and go to state 1
+    ECHO            shift and go to state 5
+    BREAK           shift and go to state 9
+    CONTINUE        shift and go to state 10
+    DOUBLE_LPAREN   shift and go to state 2
+    IDENTIFIER      shift and go to state 7
+
+    instruction                    shift and go to state 8
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+    instructions                   shift and go to state 76
+
+state 74
+
+    (12) double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN . expression DOUBLE_RPAREN
+    (27) expression -> . identifier
+    (28) expression -> . identifier DECREMENT
+    (29) expression -> . identifier INCREMENT
+    (30) expression -> . const
+    (31) expression -> . expression PLUS expression
+    (32) expression -> . expression MINUS expression
+    (33) expression -> . expression TIMES expression
+    (34) expression -> . expression DIVIDE expression
+    (35) expression -> . expression comparators expression
+    (36) expression -> . LPAREN expression RPAREN
+    (14) identifier -> . IDENTIFIER
+    (37) const -> . NUMBER
+    (38) const -> . STRING
+    (39) const -> . VARIABLE
+    (40) const -> . BOOLEAN
+
+    LPAREN          shift and go to state 18
+    IDENTIFIER      shift and go to state 7
+    NUMBER          shift and go to state 13
+    STRING          shift and go to state 15
+    VARIABLE        shift and go to state 19
+    BOOLEAN         shift and go to state 21
+
+    const                          shift and go to state 16
+    identifier                     shift and go to state 22
+    expression                     shift and go to state 77
+
+state 75
+
+    (8) instruction -> WHILE condition SEMICOLON DO instructions . DONE
+
+    DONE            shift and go to state 78
+
+
+state 76
+
+    (6) instruction -> IF condition SEMICOLON THEN instructions . SEMICOLON FI
+    (7) instruction -> IF condition SEMICOLON THEN instructions . SEMICOLON ELSE instructions SEMICOLON FI
+
+    SEMICOLON       shift and go to state 79
+
+
+state 77
+
+    (12) double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression . DOUBLE_RPAREN
+    (31) expression -> expression . PLUS expression
+    (32) expression -> expression . MINUS expression
+    (33) expression -> expression . TIMES expression
+    (34) expression -> expression . DIVIDE expression
+    (35) expression -> expression . comparators expression
+    (15) comparators -> . TEST_EQ
+    (16) comparators -> . TEST_NEQ
+    (17) comparators -> . TEST_LT
+    (18) comparators -> . TEST_GT
+    (19) comparators -> . EQUALS
+    (20) comparators -> . GT
+    (21) comparators -> . GTE
+    (22) comparators -> . LT
+    (23) comparators -> . LTE
+
+    DOUBLE_RPAREN   shift and go to state 80
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 53
+    TIMES           shift and go to state 46
+    DIVIDE          shift and go to state 43
+    TEST_EQ         shift and go to state 51
+    TEST_NEQ        shift and go to state 41
+    TEST_LT         shift and go to state 50
+    TEST_GT         shift and go to state 44
+    EQUALS          shift and go to state 45
+    GT              shift and go to state 42
+    GTE             shift and go to state 54
+    LT              shift and go to state 47
+    LTE             shift and go to state 49
+
+    comparators                    shift and go to state 52
+
+state 78
+
+    (8) instruction -> WHILE condition SEMICOLON DO instructions DONE .
+
+    IF              reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    WHILE           reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    ECHO            reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    BREAK           reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    CONTINUE        reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    DOUBLE_LPAREN   reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    IDENTIFIER      reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    $end            reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    SEMICOLON       reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+    DONE            reduce using rule 8 (instruction -> WHILE condition SEMICOLON DO instructions DONE .)
+
+
+state 79
+
+    (6) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON . FI
+    (7) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON . ELSE instructions SEMICOLON FI
+
+    FI              shift and go to state 82
+    ELSE            shift and go to state 81
+
+
+state 80
+
+    (12) double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .
+
+    IF              reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    WHILE           reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    ECHO            reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    BREAK           reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    CONTINUE        reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    DOUBLE_LPAREN   reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    IDENTIFIER      reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    $end            reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    DONE            reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+    SEMICOLON       reduce using rule 12 (double_paren_dollar_prefix_expression -> DOLLAR DOUBLE_LPAREN expression DOUBLE_RPAREN .)
+
+
+state 81
+
+    (7) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE . instructions SEMICOLON FI
+    (2) instructions -> . instruction instructions
+    (3) instructions -> . instruction
+    (4) instruction -> . identifier ASSIGNMENT expression
+    (5) instruction -> . identifier ASSIGNMENT double_paren_dollar_prefix_expression
+    (6) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON FI
+    (7) instruction -> . IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI
+    (8) instruction -> . WHILE condition SEMICOLON DO instructions DONE
+    (9) instruction -> . ECHO expression
+    (10) instruction -> . BREAK
+    (11) instruction -> . CONTINUE
+    (13) instruction -> . DOUBLE_LPAREN expression DOUBLE_RPAREN
+    (41) instruction -> . command switch_list argument_list
+    (42) instruction -> . command argument_list
+    (43) instruction -> . command switch_list
+    (44) instruction -> . command
+    (14) identifier -> . IDENTIFIER
+    (45) command -> . identifier
+
+    IF              shift and go to state 6
+    WHILE           shift and go to state 1
+    ECHO            shift and go to state 5
+    BREAK           shift and go to state 9
+    CONTINUE        shift and go to state 10
+    DOUBLE_LPAREN   shift and go to state 2
+    IDENTIFIER      shift and go to state 7
+
+    instruction                    shift and go to state 8
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+    instructions                   shift and go to state 83
+
+state 82
+
+    (6) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .
+
+    IF              reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    WHILE           reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    ECHO            reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    BREAK           reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    CONTINUE        reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    DOUBLE_LPAREN   reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    IDENTIFIER      reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    $end            reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    SEMICOLON       reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+    DONE            reduce using rule 6 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON FI .)
+
+
+state 83
+
+    (7) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions . SEMICOLON FI
+
+    SEMICOLON       shift and go to state 84
+
+
+state 84
+
+    (7) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON . FI
+
+    FI              shift and go to state 85
+
+
+state 85
+
+    (7) instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .
+
+    IF              reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    WHILE           reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    ECHO            reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    BREAK           reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    CONTINUE        reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    DOUBLE_LPAREN   reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    IDENTIFIER      reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    $end            reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    SEMICOLON       reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+    DONE            reduce using rule 7 (instruction -> IF condition SEMICOLON THEN instructions SEMICOLON ELSE instructions SEMICOLON FI .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 71 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 71 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 71 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 71 resolved as shift
+WARNING: shift/reduce conflict for TEST_EQ in state 71 resolved as shift
+WARNING: shift/reduce conflict for TEST_NEQ in state 71 resolved as shift
+WARNING: shift/reduce conflict for TEST_LT in state 71 resolved as shift
+WARNING: shift/reduce conflict for TEST_GT in state 71 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 71 resolved as shift
+WARNING: shift/reduce conflict for GT in state 71 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 71 resolved as shift
+WARNING: shift/reduce conflict for LT in state 71 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 71 resolved as shift
